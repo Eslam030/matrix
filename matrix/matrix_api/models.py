@@ -17,10 +17,10 @@ class sponsors (models.Model):
     class Meta:
         verbose_name = 'sponsor'
         verbose_name_plural = 'sponsors'
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, primary_key=True)
     ProfileLink = models.URLField(max_length=100)
     Image = models.ImageField(
-        upload_to=settings.BASE_DIR / 'matrix_api/sponsor_images/')
+        upload_to=settings.BASE_DIR / 'matrix_api/sponsor_images/', null=True, blank=True, default='')
     Bio = models.TextField(max_length=2000)
 
     def __str__(self):
@@ -31,10 +31,10 @@ class Communities_Partners (models.Model):
     class Meta:
         verbose_name = 'Community_Partner'
         verbose_name_plural = 'Communities_Partners'
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, primary_key=True)
     ProfileLink = models.URLField(max_length=100)
     Image = models.ImageField(
-        upload_to=settings.BASE_DIR / 'matrix_api/Communities_Partners_images/')
+        upload_to=settings.BASE_DIR / 'matrix_api/Communities_Partners_images/', null=True, blank=True, default='')
     Bio = models.TextField(max_length=2000)
 
     def __str__(self):
@@ -45,10 +45,10 @@ class Partners (models.Model):
     class Meta:
         verbose_name = 'Partner'
         verbose_name_plural = 'Partners'
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, primary_key=True)
     ProfileLink = models.URLField(max_length=100)
     Image = models.ImageField(
-        upload_to=settings.BASE_DIR / 'matrix_api/Partners_images/')
+        upload_to=settings.BASE_DIR / 'matrix_api/Partners_images/', null=True, blank=True, default='')
     Bio = models.TextField(max_length=2000)
 
     def __str__(self):
@@ -59,11 +59,11 @@ class Vips (models.Model):
     class Meta:
         verbose_name = 'VIP'
         verbose_name_plural = 'VIPs'
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, primary_key=True)
     ProfileLink = models.URLField(max_length=100)
     position = models.CharField(max_length=100)
     Image = models.ImageField(
-        upload_to=settings.BASE_DIR / 'matrix_api/Vips_images/')
+        upload_to=settings.BASE_DIR / 'matrix_api/Vips_images/', null=True, blank=True, default='')
     Bio = models.TextField(max_length=2000)
 
     def __str__(self):
@@ -74,12 +74,12 @@ class Mentors (models.Model):
     class Meta:
         verbose_name = 'Mentor'
         verbose_name_plural = 'Mentors'
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, primary_key=True)
     ProfileLink = models.URLField(max_length=100)
     position = models.CharField(max_length=100)
     Track = models.CharField(max_length=100)
     Image = models.ImageField(
-        upload_to=settings.BASE_DIR / 'matrix_api/Mentors_images/')
+        upload_to=settings.BASE_DIR / 'matrix_api/Mentors_images/', null=True, blank=True, default='')
     Bio = models.TextField(max_length=2000)
 
     def __str__(self):
@@ -110,7 +110,7 @@ class Speaker (models.Model):
         Mentorship = 'M'
         Career_Circles = 'CC'
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, primary_key=True)
     Track = models.CharField(max_length=100)
     Type_of_Speaker = models.CharField(
         choices=Speaker_Types.choices, max_length=2)
@@ -118,7 +118,7 @@ class Speaker (models.Model):
     Position = models.CharField(max_length=100)
     Bio = models.TextField(max_length=2000)
     Image = models.ImageField(
-        upload_to=settings.BASE_DIR / 'matrix_api/Speaker_images/')
+        upload_to=settings.BASE_DIR / 'matrix_api/Speaker_images/', null=True, blank=True, default='')
     Profile_link = models.URLField(max_length=100)
     Day = models.DateField(choices=Day.choices)
     Time = models.TimeField()
@@ -136,11 +136,11 @@ class Host_and_main_communities (models.Model):
     class Types (models.TextChoices):
         Host = 'H'
         Main_Community = 'MC'
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, primary_key=True)
     community_type = models.CharField(max_length=2, choices=Types.choices)
     ProfileLink = models.URLField(max_length=100)
     Image = models.ImageField(
-        upload_to=settings.BASE_DIR / 'matrix_api/Host_and_main_communities_images/')
+        upload_to=settings.BASE_DIR / 'matrix_api/Host_and_main_communities_images/', null=True, blank=True, default='')
 
     def __str__(self):
         return self.name
