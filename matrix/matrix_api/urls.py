@@ -1,9 +1,10 @@
 from django.urls import path
 from .views import *
 
+app_name = 'matrix_api'
 
 urlpatterns = [
-    path('userCheck/', user_handler.as_view(), name='user'),
+    path('scanUser/', user_scanner.as_view(), name='user'),
     path('image/', image_handler.as_view(), name='image'),
     path('user/', USER.as_view(), name='user'),
     path('sponsors/', SPONSORS.as_view(), name='sponsors'),
@@ -15,4 +16,6 @@ urlpatterns = [
     path('speakers', SPEAKERS.as_view(), name='speakers'),
     path('host_and_main_communities', HOST_AND_MAIN_COMMUNITIES.as_view(),
          name='host_and_main_communities'),
+    path('load_data', Data.as_view(), name='load_data'),
+
 ]

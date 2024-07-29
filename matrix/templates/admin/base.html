@@ -1,0 +1,87 @@
+{% extends "admin/base_site.html" %}
+
+
+
+
+{% block extrastyle %}
+{{block.super}}
+<style>
+    .my-btn  {
+        background-color :#007bff ;
+        color: white;
+        border: none;
+        border-radius: 0.3rem;
+        padding: 0.5rem 0.7rem;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .my-btn:hover{
+        background-color: #0056b3;
+        border-radius: 0.3rem;
+    
+    }
+    .loading {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 0.3rem;
+        padding: 0.5rem 0.7rem;
+        font-size: 16px;
+        cursor: not-allowed;
+    }
+</style>
+{% endblock %}
+
+
+{% block extrajs %}
+{{ block.super }}
+<script>
+    let list_item = document.createElement('li');
+    list_item.classList.add('nav-item', 'd-none', 'd-sm-inline-block');
+    let button = document.createElement('button');
+    button.classList.add('my-btn');
+    button.innerHTML = 'Load Data &nbsp&nbsp';
+    let icon = document.createElement('i');
+    icon.classList.add('fas', 'fa-download');
+    button.appendChild(icon);
+    list_item.appendChild(button);
+    document.getElementsByClassName('navbar-nav')[0].appendChild(list_item);
+    button.addEventListener('click', function(){
+        // diable the button
+        button.disabled = true;
+        button.innerHTML = 'Loading Data &nbsp&nbsp';
+        // adding icon to the button
+        let load_icon = document.createElement('i');
+        load_icon.classList.add('fas', 'fa-spinner', 'fa-spin');
+        button.appendChild(load_icon);
+        // hide the hover effect
+        button.classList.remove('my-btn');
+        button.classList.add('loading');
+
+
+        xhr = new XMLHttpRequest();
+        xhr.open('POST', "{% url 'matrix_api:load_data' %}", true);
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+                response = JSON.parse(xhr.responseText);
+                if (response.errors.length > 0){
+                    alert(response.errors.join('\n'));
+                }else {
+                    alert('Data Loaded Successfully');
+                }
+            }else  {
+                
+            }
+            // retrive all changes
+            button.innerHTML = 'Load Data &nbsp&nbsp';
+            button.appendChild(icon);
+            button.disabled = false;
+            button.classList.remove('loading');
+            button.classList.add('my-btn');
+        }
+        xhr.send() ;
+    });
+</script>
+{% endblock %}
+

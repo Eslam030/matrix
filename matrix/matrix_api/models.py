@@ -98,10 +98,10 @@ class Speaker (models.Model):
         Mentorship = 'M'
         Workshops = 'W'
 
-    class Day (models.TextChoices):
-        Day1 = '2024-07-05'
-        Day2 = '2024-07-06'
-        Day3 = '2024-07-07'
+    class Days (models.TextChoices):
+        Day1 = '2024-07-31'
+        Day2 = '2024-08-01'
+        Day3 = '2024-08-02'
 
     class stages (models.TextChoices):
         Primary = 'P'
@@ -115,14 +115,16 @@ class Speaker (models.Model):
     Type_of_Speaker = models.CharField(
         choices=Speaker_Types.choices, max_length=2)
     Session_Title = models.CharField(max_length=100)
-    Position = models.CharField(max_length=100)
+    position = models.CharField(max_length=100)
     Bio = models.TextField(max_length=2000)
     Image = models.ImageField(
         upload_to=settings.BASE_DIR / 'matrix_api/Speaker_images/', null=True, blank=True, default='')
-    Profile_link = models.URLField(max_length=100)
-    Day = models.DateField(choices=Day.choices)
-    Time = models.TimeField()
-    Stage = models.CharField(max_length=2, choices=stages.choices)
+    ProfileLink = models.URLField(max_length=100)
+    Day = models.DateField(choices=Days.choices,
+                           null=True, blank=True, default='')
+    Time = models.TimeField(null=True, blank=True, default='')
+    Stage = models.CharField(
+        max_length=2, choices=stages.choices, null=True, blank=True, default='')
 
     def __str__(self):
         return self.name
